@@ -92,3 +92,15 @@ cancelEditBtn.addEventListener("click", (e) =>{
 
     toggleForm()
 })
+
+editForm.addEventListener("click", (e) => {
+    e.preventDefault()
+
+    const editInputValue = editInput
+
+    if(editInputValue){
+        updatetodo(editInputValue)
+    }
+
+    toggleForm()
+})
