@@ -1,3 +1,9 @@
+/* Estudar: 
+   - oq é appendChild
+   - preventDefault
+   - target
+*/
+
 // Seleção de elementos
 const todoForm = document.querySelector("#todo-form")
 const todoList = document.querySelector("#todo-list")
@@ -31,9 +37,16 @@ const saveTodo = (text) => {
     removeBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>'
     todo.appendChild(removeBtn)
 
-    console.log(todo)
-}
+    todoList.appendChild(todo)
 
+    todoInput.value = ""
+    todoInput.focus()
+}
+const toggleForm = () => {
+    editForm.classList.toggle("hide");
+    todoForm.classList.toggle("hide");
+    todoList.classList.toggle("hide");
+}
 //Eventos
 
 todoForm.addEventListener("submit", (a) =>{
@@ -45,4 +58,37 @@ todoForm.addEventListener("submit", (a) =>{
         saveTodo(valorInput)
     }
 
+})
+
+document.addEventListener("click", (e) => {
+    const targetEl = e.target
+    const parentEl = targetEl.closest("div")
+
+    if(targetEl.classList.contains("finish-todo")){
+        parentEl.classList.toggle("done")
+
+        /*
+        toggle = alternar
+
+        if(parentEl.classList.contains("done")){
+            parentEl.classList.remove("done")
+        }else{
+            parentEl.classList.add("done")
+        }
+        */
+    }
+
+    if(targetEl.classList.contains("remove-todo")){
+        parentEl.remove()
+    }
+
+    if(targetEl.classList.contains("edit-todo")){
+        toggleForm()
+    }
+})
+
+cancelEditBtn.addEventListener("click", (e) =>{
+    e.preventDefault()
+
+    toggleForm()
 })
